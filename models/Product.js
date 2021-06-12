@@ -3,23 +3,23 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
     name:{
         type : String,
-        //required : true,
+        required : true,
     },
     image:{
         type : String,
-        //required : true,
+        required : true,
     },
     price:{
         type :Number,
-        //required : true,
+        required : true,
     },
     countInStock:{
         type : Number,
-       // required : true,
+       required : true,
     },
     description :{
         type :String,
-        //required: true,
+        required: true,
     },
     ratting :{
         type : Number ,
@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema({
     },
     numReviews :{
         type : Number,
-        //required : true,
+        required : true,
     }
 
 },{
