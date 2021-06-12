@@ -2,12 +2,12 @@ const expressAsyncHandeler = require('express-async-handler');
 const express  = require('express');
 const router = express.Router();
 const productCtrl = require('../controllers/product');
-const craftManAuth = require('../middleware/craftManAuth');
+const isSellerOrAdmin = require('../middleware/auth');
 const auth = require('../middleware/auth');
 
 
 //adding a new product
-router.post('/add',craftManAuth,(req, res, next)=>{
+router.post('/add',isSellerOrAdmin,(req, res, next)=>{
     //delete champ id of the request
     delete req.body._id;
     const product = new Product({
@@ -47,7 +47,7 @@ router.use('/products', (req , res , next)=>{
 });
 
 //updatting product by id
-router.put('/:id', craftManAuth,(req, res, next) => {
+router.put('/:id', isSellerOrAdmin ,(req, res, next) => {
     Product.updateOne({ _id : req.params.id}, {
         ...req.body,
         _id : req.params.id
@@ -59,7 +59,7 @@ router.put('/:id', craftManAuth,(req, res, next) => {
 //updatting ratting
 
 //deletting product
-router.delete('/:id',craftManAuth,(req, res, next)=>{
+router.delete('/:id',isSellerOrAdmin,(req, res, next)=>{
     Product.deleteOne({_id : req.params.id})
     .then(() => res.status(200).json({ message : 'Product have been deleted ! '}))
     .catch(error => res.status(400).json({ error }));
